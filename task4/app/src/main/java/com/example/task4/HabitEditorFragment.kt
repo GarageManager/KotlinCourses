@@ -76,7 +76,7 @@ class HabitEditorFragment : Fragment() {
             habit_periodicity.text.toString(),
             habitType
         )
-        if (habitType == "Плохая") {
+        if (habitType == "Негативная") {
             callback!!.negativeHabits.add(habit)
         } else {
             callback!!.positiveHabits.add(habit)

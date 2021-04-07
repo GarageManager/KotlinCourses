@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_positive_habits.*
 import java.util.ArrayList
 
@@ -22,6 +24,7 @@ class PositiveHabits : Fragment(), IHabitsList {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerAdapter = CustomRecyclerAdapter(callback!!.positiveHabits, positive_habits, this)
+        positive_habits.layoutManager = LinearLayoutManager(activity)
         positive_habits.adapter = recyclerAdapter
     }
 
@@ -29,5 +32,10 @@ class PositiveHabits : Fragment(), IHabitsList {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_positive_habits, container, false)
+    }
+
+    override fun handleRvClick(item: HabitInfo, pos: Int) {
+        HabitEditorFragment.newInstance(item, pos)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 }
