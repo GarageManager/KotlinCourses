@@ -1,16 +1,25 @@
 package com.example.task4
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RadioButton
 import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_habit_editor.*
 
 class HabitEditorFragment : Fragment() {
+
+    private var callback: ICallBack? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = activity as ICallBack
+    }
 
     companion object {
         fun newInstance(habitInfo: HabitInfo, pos: Int): HabitEditorFragment {
@@ -43,7 +52,8 @@ class HabitEditorFragment : Fragment() {
             habit_priority.setSelection(getIndex(habit_priority, it.getString("habit_priority")!!))
         }
 
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
+        view.findViewById<Button>(R.id.save_habit).setOnClickListener {
+            addHabit()
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
@@ -55,5 +65,21 @@ class HabitEditorFragment : Fragment() {
             }
         }
         return 0
+    }
+
+    private fun addHabit() {
+        val habitType = activity?.findViewById<RadioButton>(habit_types.checkedRadioButtonId)?.text.toString()
+        val habit = HabitInfo(
+            habit_name.text.toString(),
+            habit_description.text.toString(),
+            habit_priority.selectedItem.toString(),
+            habit_periodicity.text.toString(),
+            habitType
+        )
+        if (habitType == "Плохая") {
+            callback!!.negativeHabits.add(habit)
+        } else {
+            callback!!.positiveHabits.add(habit)
+        }
     }
 }

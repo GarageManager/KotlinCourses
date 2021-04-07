@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ICallBack {
+
+    override val positiveHabits: ArrayList<HabitInfo> = ArrayList()
+    override val negativeHabits: ArrayList<HabitInfo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

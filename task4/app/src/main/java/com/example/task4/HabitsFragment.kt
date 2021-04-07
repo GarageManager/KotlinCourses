@@ -1,5 +1,6 @@
 package com.example.task4
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class HabitsFragment : Fragment() {
+
+    private var callback: ICallBack? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = activity as ICallBack
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

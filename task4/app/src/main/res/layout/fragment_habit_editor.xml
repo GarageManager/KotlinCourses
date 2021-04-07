@@ -109,21 +109,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Тип1"/>
+                android:text="Позитивная"/>
 
         <RadioButton
                 android:id="@+id/radio_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Тип2"/>
+                android:text="Негативная"/>
 
-        <RadioButton
-                android:id="@+id/radio_gray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Тип3" />
     </RadioGroup>
 
     <Button
