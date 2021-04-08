@@ -39,17 +39,8 @@ class HabitsFragment : Fragment() {
             }
         }.attach()
 
-
-
             view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//                val fragment = HabitEditorFragment()
-//                activity!!.supportFragmentManager.beginTransaction()
-//                    .replace(id, fragment, "findThisFragment")
-//                    .addToBackStack(null)
-//                    .commit()
+                findNavController().navigate(R.id.action_home_to_editor)
         }
     }
-
-
 }

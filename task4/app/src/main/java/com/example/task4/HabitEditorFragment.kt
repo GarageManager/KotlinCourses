@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_habit_editor.*
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_habit_editor.*
 class HabitEditorFragment : Fragment() {
 
     private var callback: ICallBack? = null
+    private var position: Int = -1
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,25 +48,36 @@ class HabitEditorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
+            position = it.getInt("item_position")
             habit_name.setText(it.getString("habit_name"))
             habit_description.setText(it.getString("habit_description"))
             habit_periodicity.setText(it.getString("habit_periodicity"))
-            habit_priority.setSelection(getIndex(habit_priority, it.getString("habit_priority")!!))
+            habit_priority.setSelection(getSpinnerIndex(habit_priority, it.getString("habit_priority")!!))
+            radioGroupSetCheck(habit_types, it.getString("habit_type"))
         }
 
         view.findViewById<Button>(R.id.save_habit).setOnClickListener {
             addHabit()
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            findNavController().navigate(R.id.action_editor_to_home)
         }
     }
 
-    private fun getIndex(spinner: Spinner, myString: String): Int {
+    private fun getSpinnerIndex(spinner: Spinner, myString: String): Int {
         for (i in 0 until spinner.count) {
-            if (spinner.getItemAtPosition(i).toString().equals(myString, ignoreCase = true)) {
+            if (spinner.getItemAtPosition(i).toString().equals(myString, ignoreCase = true))
                 return i
-            }
         }
         return 0
+    }
+
+    private fun radioGroupSetCheck(rg: RadioGroup, myString: String?){
+        rg.check(rg.getChildAt(0).id)
+        for (i in 0 until rg.childCount) {
+            val rb = activity!!.findViewById<RadioButton>(rg.getChildAt(i).id)
+            if (rb.text.toString().equals(myString, ignoreCase = true)) {
+                rg.check(rb.id)
+            }
+        }
     }
 
     private fun addHabit() {
@@ -76,10 +89,9 @@ class HabitEditorFragment : Fragment() {
             habit_periodicity.text.toString(),
             habitType
         )
-        if (habitType == "Негативная") {
-            callback!!.negativeHabits.add(habit)
-        } else {
-            callback!!.positiveHabits.add(habit)
-        }
+        if (position == -1)
+            callback!!.habits.add(habit)
+        else
+            callback!!.habits[position] = habit
     }
 }

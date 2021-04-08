@@ -3,26 +3,34 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
-            app:startDestination="@id/FirstFragment">
+            app:startDestination="@id/nav_home">
 
     <fragment
-            android:id="@+id/FirstFragment"
+            android:id="@+id/nav_home"
             android:name="com.example.task4.HabitsFragment"
-            android:label="@string/first_fragment_label"
+            android:label="Habits"
             tools:layout="@layout/fragment_first">
 
         <action
-                android:id="@+id/action_FirstFragment_to_SecondFragment"
-                app:destination="@id/SecondFragment"/>
+                android:id="@+id/action_home_to_editor"
+                app:destination="@id/habit_editor"/>
     </fragment>
+
     <fragment
-            android:id="@+id/SecondFragment"
+            android:id="@+id/nav_about"
+            android:name="com.example.task4.HabitsFragment"
+            android:label="About"
+            tools:layout="@layout/fragment_about">
+    </fragment>
+
+    <fragment
+            android:id="@+id/habit_editor"
             android:name="com.example.task4.HabitEditorFragment"
-            android:label="@string/second_fragment_label"
+            android:label="Editor"
             tools:layout="@layout/fragment_habit_editor">
 
         <action
-                android:id="@+id/action_SecondFragment_to_FirstFragment"
-                app:destination="@id/FirstFragment"/>
+                android:id="@+id/action_editor_to_home"
+                app:destination="@id/nav_home"/>
     </fragment>
 </navigation>
