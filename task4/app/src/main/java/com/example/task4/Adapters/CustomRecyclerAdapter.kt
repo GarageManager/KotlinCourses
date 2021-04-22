@@ -1,10 +1,13 @@
-package com.example.task4
+package com.example.task4.Adapters
 
 import  android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.task4.HabitInfo
+import com.example.task4.Fragments.IHabitsList
+import com.example.task4.R
 
 
 class CustomRecyclerAdapter(private val values: List<HabitInfo>, private val rv: RecyclerView, private val fragment: IHabitsList) :
@@ -19,11 +22,11 @@ class CustomRecyclerAdapter(private val values: List<HabitInfo>, private val rv:
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.habitItemName?.text = values[position].Name
-        holder.habitItemType?.text = "Тип: ${values[position].Type}"
-        holder.habitItemDescription?.text = values[position].Description
-        holder.habitItemPriority?.text = "Приоритет: ${values[position].Priority}"
-        holder.habitItemPeriodicity?.text = "Периодичность: ${values[position].Periodicity}"
+        holder.habitItemName?.text = values[position].name
+        holder.habitItemType?.text = "Type: ${values[position].type}"
+        holder.habitItemDescription?.text = values[position].description
+        holder.habitItemPriority?.text = "Priority: ${values[position].priority}"
+        holder.habitItemPeriodicity?.text = "Periodicity: ${values[position].periodicity}"
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

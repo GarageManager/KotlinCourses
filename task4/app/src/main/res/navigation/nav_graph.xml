@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/nav_home"
-            android:name="com.example.task4.HabitsFragment"
+            android:name="com.example.task4.Fragments.ContentMainFragment"
             android:label="Habits"
             tools:layout="@layout/fragment_first">
 
@@ -20,7 +20,7 @@
 
     <fragment
             android:id="@+id/nav_about"
-            android:name="com.example.task4.About"
+            android:name="com.example.task4.Fragments.AboutFragment"
             android:label="About"
             tools:layout="@layout/fragment_about">
         <action
@@ -30,7 +30,7 @@
 
     <fragment
             android:id="@+id/habit_editor"
-            android:name="com.example.task4.HabitEditorFragment"
+            android:name="com.example.task4.Fragments.HabitEditorFragment"
             android:label="Editor"
             tools:layout="@layout/fragment_habit_editor">
 
@@ -38,4 +38,11 @@
                 android:id="@+id/action_editor_to_home"
                 app:destination="@id/nav_home"/>
     </fragment>
+
+<!--    <fragment-->
+<!--            android:id="@+id/filter_fragment"-->
+<!--            android:name="com.example.task4.Fragments.FilterFragment"-->
+<!--            android:label="Filter"-->
+<!--            tools:layout="@layout/fragment_filter">-->
+<!--    </fragment>-->
 </navigation>

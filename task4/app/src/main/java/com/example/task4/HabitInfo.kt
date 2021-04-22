@@ -1,9 +1,19 @@
 package com.example.task4
 
-class HabitInfo(name: String?, description: String?, priority: String?, periodicity: String?, type: String?) {
-    val Name: String? = name
-    val Description: String? = description
-    val Priority: String? = priority
-    val Periodicity: String? = periodicity
-    val Type: String? = type
+class HabitInfo(val name: String?,
+                val description: String?,
+                val priority: String?,
+                val periodicity: Int,
+                val type: HabitType?
+)
+{
+    var priorityNumeric= 0
+    init {
+        priorityNumeric = when (priority)
+        {
+            "Low" -> 0
+            "Medium" -> 1
+            else -> 2
+        }
+    }
 }

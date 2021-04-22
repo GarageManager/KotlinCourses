@@ -1,15 +1,29 @@
 <resources>
     <string name="app_name">task4</string>
-    <string name="title">Мои привычки</string>
-    <string name="name">Название</string>
-    <string name="description">Описание</string>
-    <string name="priority">Приоритет</string>
-    <string name="periodicity">Периодичность</string>
-    <string name="type">Тип привычки</string>
+    <string name="title">My habits</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="priority">Priority</string>
+    <string name="periodicity">Periodicity</string>
+    <string name="type">Habit type</string>
     <string name="action_settings">Settings</string>
     <string-array name="catNames">
-        <item>Низкий</item>
-        <item>Средний</item>
-        <item>Высокий</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
+
+    <string-array name="spinner_filters">
+        <item>None</item>
+        <item>Priority</item>
+        <item>Periodicity</item>
+    </string-array>
+
+    <string-array name="orderings">
+        <item>None</item>
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

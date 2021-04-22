@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HabitEditorFragment">
+        tools:context=".Fragments.HabitEditorFragment">
 
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
@@ -102,21 +102,22 @@
             android:id="@+id/habit_types"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:checkedButton="@+id/radio_positive">
 
         <RadioButton
-                android:id="@+id/radio_red"
+                android:id="@+id/radio_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Позитивная"/>
+                android:text="Positive"/>
 
         <RadioButton
-                android:id="@+id/radio_blue"
+                android:id="@+id/radio_negative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Негативная"/>
+                android:text="Negative"/>
 
     </RadioGroup>
 
@@ -126,7 +127,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/habit_types"
             app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
-            android:text="Сохранить"
+            android:text="Save"
             android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
