@@ -38,11 +38,4 @@
                 android:id="@+id/action_editor_to_home"
                 app:destination="@id/nav_home"/>
     </fragment>
-
-<!--    <fragment-->
-<!--            android:id="@+id/filter_fragment"-->
-<!--            android:name="com.example.task4.Fragments.FilterFragment"-->
-<!--            android:label="Filter"-->
-<!--            tools:layout="@layout/fragment_filter">-->
-<!--    </fragment>-->
 </navigation>

@@ -7,19 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task4.*
 import com.example.task4.Adapters.CustomRecyclerAdapter
-import com.example.task4.ViewModels.HabitsList.HabitsModel
-import com.example.task4.ViewModels.HabitsList.HabitsViewModel
+import com.example.task4.Habit.HabitInfo
+import com.example.task4.Habit.HabitType
+import com.example.task4.ViewModels.HabitsViewModel
 import kotlinx.android.synthetic.main.fragment_habits_list.*
 
 class HabitsListFragment : Fragment(), IHabitsList {
     private lateinit var recyclerAdapter: CustomRecyclerAdapter
     private lateinit var habitType: HabitType
+    private lateinit var adapterHabits: ArrayList<HabitInfo>
     private val viewModel: HabitsViewModel by activityViewModels()
 
     companion object {
@@ -37,13 +37,19 @@ class HabitsListFragment : Fragment(), IHabitsList {
         arguments?.let {
             habitType = it.getSerializable("type") as HabitType
         }
+        adapterHabits = viewModel.getHabits(habitType)
+        recyclerAdapter = CustomRecyclerAdapter(adapterHabits, habits_list, this)
+        habits_list.layoutManager = LinearLayoutManager(activity)
+        habits_list.adapter = recyclerAdapter
 
-        viewModel.profile.observe(viewLifecycleOwner, Observer { profile ->
-            val habits = viewModel.getHabits(habitType)
-            recyclerAdapter = CustomRecyclerAdapter(habits, habits_list, this)
-            habits_list.layoutManager = LinearLayoutManager(activity)
-            habits_list.adapter = recyclerAdapter
-        })
+        val obs = Observer<Any> {
+            adapterHabits.clear()
+            adapterHabits .addAll(viewModel.getHabits(habitType))
+            recyclerAdapter.notifyDataSetChanged()
+        }
+
+        viewModel.habits.observe(viewLifecycleOwner, obs)
+        viewModel.filter.observe(viewLifecycleOwner, obs)
     }
 
     override fun onCreateView(
@@ -53,14 +59,13 @@ class HabitsListFragment : Fragment(), IHabitsList {
     }
 
     override fun handleRvClick(item: HabitInfo, pos: Int) {
-        HabitEditorFragment.newInstance(item, pos)
         val bundle = Bundle()
         bundle.putInt("item_position", pos)
         bundle.putString("habit_name", item.name)
         bundle.putString("habit_description", item.description)
-        bundle.putString("habit_priority", item.priority)
+        bundle.putString("habit_priority", item.priority.name)
         bundle.putInt("habit_periodicity", item.periodicity)
-        bundle.putSerializable("habit_type", item.type)
+        bundle.putString("habit_type", item.type.name)
         findNavController().navigate(R.id.action_home_to_editor, bundle)
     }
 }

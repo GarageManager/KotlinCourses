@@ -2,7 +2,7 @@ package com.example.task4.Adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.task4.HabitType
+import com.example.task4.Habit.HabitType
 import com.example.task4.Fragments.HabitsListFragment
 
 class HabitsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)  {

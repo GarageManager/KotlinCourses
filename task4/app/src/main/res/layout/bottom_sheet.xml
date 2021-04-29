@@ -10,7 +10,6 @@
         android:paddingBottom="20dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="60dp"
-        tools:context=".Fragments.FilterFragment"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.Guideline

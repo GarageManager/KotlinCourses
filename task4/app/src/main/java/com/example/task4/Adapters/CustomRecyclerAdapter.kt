@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task4.HabitInfo
+import com.example.task4.Habit.HabitInfo
 import com.example.task4.Fragments.IHabitsList
 import com.example.task4.R
 
