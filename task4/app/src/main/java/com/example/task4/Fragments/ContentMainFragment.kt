@@ -14,6 +14,7 @@ import com.example.task4.Filter.HabitFilter
 import com.example.task4.Filter.OrderingType
 import com.example.task4.R
 import com.example.task4.HabitsModel
+import com.example.task4.Room.AppDatabase
 import com.example.task4.ViewModels.HabitsViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,7 +29,7 @@ class ContentMainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity(), object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HabitsViewModel(HabitsModel) as T
+                return HabitsViewModel(HabitsModel.init(AppDatabase.getDatabase(requireActivity()).HabitsDao())) as T
             }
         }).get(HabitsViewModel::class.java)
     }

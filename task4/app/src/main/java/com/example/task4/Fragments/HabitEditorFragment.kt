@@ -8,20 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.task4.HabitsModel
 import com.example.task4.R
 import com.example.task4.ViewModels.HabitEditorViewModel
-import com.example.task4.ViewModels.HabitsViewModel
 import kotlinx.android.synthetic.main.fragment_habit_editor.*
 
 class HabitEditorFragment : Fragment() {
-    private val habitsViewModel: HabitsViewModel by activityViewModels()
     private lateinit var editorViewModel: HabitEditorViewModel
-    private var position: Int = -1
+    private var position: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -52,13 +49,13 @@ class HabitEditorFragment : Fragment() {
                 editorViewModel.periodicity.value!!,
                 editorViewModel.priority.value!!,
                 editorViewModel.type.value!!,
-                editorViewModel.position.value!!
+                editorViewModel.position.value
             )
         }
 
         habit_priority.setSelection(0)
         save_habit.setOnClickListener {
-            addHabit()
+            editorViewModel.insert(position, editorViewModel.getHabit())
             findNavController().popBackStack()
         }
     }
@@ -109,17 +106,13 @@ class HabitEditorFragment : Fragment() {
         )
     }
 
-    private fun addHabit() {
-        habitsViewModel.addHabit(position, editorViewModel.getHabit())
-    }
-
     private fun setEditorFields(
         name: String,
         description: String,
         periodicity: Int,
         priority: String,
         type: String,
-        pos: Int
+        pos: Int?
     ) {
         habit_name.setText(name)
         habit_description.setText(description)

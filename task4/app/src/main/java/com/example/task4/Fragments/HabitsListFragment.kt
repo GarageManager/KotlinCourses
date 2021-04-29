@@ -44,7 +44,7 @@ class HabitsListFragment : Fragment(), IHabitsList {
 
         val obs = Observer<Any> {
             adapterHabits.clear()
-            adapterHabits .addAll(viewModel.getHabits(habitType))
+            adapterHabits.addAll(viewModel.getHabits(habitType))
             recyclerAdapter.notifyDataSetChanged()
         }
 

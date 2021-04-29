@@ -14,14 +14,14 @@ class HabitEditorViewModel(private val model: HabitsModel) : ViewModel() {
     private val mutableType: MutableLiveData<String> = MutableLiveData()
     private val mutablePeriodicity: MutableLiveData<Int> = MutableLiveData()
     private val mutablePriority: MutableLiveData<String> = MutableLiveData()
-    private val mutablePosition: MutableLiveData<Int> = MutableLiveData()
+    private val mutablePosition: MutableLiveData<Int?> = MutableLiveData()
 
     val name: LiveData<String> = mutableName
     val description: LiveData<String> = mutableDescription
     val type: LiveData<String> = mutableType
     val periodicity: LiveData<Int> = mutablePeriodicity
     val priority: LiveData<String> = mutablePriority
-    val position: LiveData<Int> = mutablePosition
+    val position: LiveData<Int?> = mutablePosition
 
     init {
         load()
@@ -32,16 +32,21 @@ class HabitEditorViewModel(private val model: HabitsModel) : ViewModel() {
     fun setType(type: String) { mutableType.value = type }
     fun setPeriodicity(periodicity: String) { mutablePeriodicity.value = if (periodicity == "") 0 else periodicity.toInt() }
     fun setPriority(priority: String) { mutablePriority.value = priority }
-    fun setPosition(position: Int) {mutablePosition.value = position }
+    fun setPosition(position: Int?) {mutablePosition.value = position }
 
     fun getHabit(): HabitInfo{
         return HabitInfo(
-            mutableName.value,
-            mutableDescription.value,
+            mutableName.value!!,
+            mutableDescription.value!!,
             HabitPriority.valueOf(mutablePriority.value!!),
             mutablePeriodicity.value!!.toInt(),
             HabitType.valueOf(mutableType.value!!)
         )
+    }
+
+    fun insert(pos: Int?, habit: HabitInfo)
+    {
+        model.insert(habit, pos)
     }
 
     private fun load() {

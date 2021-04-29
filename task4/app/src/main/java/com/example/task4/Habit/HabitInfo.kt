@@ -1,7 +1,7 @@
 package com.example.task4.Habit
 
-class HabitInfo(val name: String?,
-                val description: String?,
+class HabitInfo(val name: String,
+                val description: String,
                 val priority: HabitPriority,
                 val periodicity: Int,
                 val type: HabitType

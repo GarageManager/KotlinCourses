@@ -1,47 +1,30 @@
 package com.example.task4
 
-import com.example.task4.Filter.FilterOrdering
 import com.example.task4.Filter.HabitFilter
-import com.example.task4.Filter.OrderingType
 import com.example.task4.Habit.HabitInfo
-import com.example.task4.Habit.HabitType
+import com.example.task4.Room.HabitEntity
+import com.example.task4.Room.HabitsDao
+import com.example.task4.Room.RoomMapper
+import kotlinx.coroutines.flow.Flow
 
 object HabitsModel {
-    private val habits: ArrayList<HabitInfo> = ArrayList()
-    private val reg = "[^\\w]*(\\w+)[^\\w]*".toRegex()
+    private lateinit var habitsDao: HabitsDao
+    lateinit var habits: Flow<List<HabitEntity>>
 
-    fun addHabit(pos: Int, habit: HabitInfo)
+    fun init(habitsDao: HabitsDao): HabitsModel
     {
-        if (pos == -1)
-            habits.add(habit)
-        else
-            habits[pos] = habit
+        this.habitsDao = habitsDao
+        habits = habitsDao.getAll()
+        return this
     }
 
-    fun getHabits(habitType: HabitType, filter: HabitFilter): ArrayList<HabitInfo>
-    {
-        val filteredHabits = ArrayList<HabitInfo>()
-        for (habit in habits)
-        {
-            if (habit.type == habitType) {
-                if (!reg.findAll(filter.habitName).any() || habit.name!!.contains(filter.habitName))
-                    filteredHabits.add(habit)
-            }
-        }
-        if (filter.filterOrdering != FilterOrdering.None) {
-            val filterOrdering = filter.filterOrdering
-            if (filter.orderingType == OrderingType.Ascending) {
-                filteredHabits.sortBy { if (filterOrdering == FilterOrdering.Periodicity) it.periodicity else it.priorityNumeric }
-            } else if (filter.orderingType == OrderingType.Descending) {
-                filteredHabits.sortByDescending { if (filterOrdering == FilterOrdering.Periodicity) it.periodicity else it.priorityNumeric }
-            }
-        }
-
-        return filteredHabits
+    fun insert(habit: HabitInfo, pos: Int?) {
+        habitsDao.insert(RoomMapper.habitInfoToHabitEntity(habit, pos))
     }
 
-    fun loadMain(function: (ArrayList<HabitInfo>, HabitFilter) -> Unit){
-        function.invoke(habits, HabitFilter())
+
+    fun loadMain(function: (HabitFilter) -> Unit){
+        function.invoke(HabitFilter())
     }
 
     fun loadEditor(function: (HabitInfo) -> Unit)
