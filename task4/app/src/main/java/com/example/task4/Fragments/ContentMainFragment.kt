@@ -12,6 +12,7 @@ import com.example.task4.Adapters.HabitsPagerAdapter
 import com.example.task4.Filter.FilterOrdering
 import com.example.task4.Filter.HabitFilter
 import com.example.task4.Filter.OrderingType
+import com.example.task4.Habit.HabitType
 import com.example.task4.R
 import com.example.task4.HabitsModel
 import com.example.task4.Room.AppDatabase
@@ -44,8 +45,8 @@ class ContentMainFragment : Fragment() {
         pager.adapter = HabitsPagerAdapter(this)
         TabLayoutMediator(tab_layout, pager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Positive"
-                else -> "Negative"
+                0 -> HabitType.Positive.name
+                else -> HabitType.Negative.name
             }
         }.attach()
 

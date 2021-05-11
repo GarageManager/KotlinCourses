@@ -10,13 +10,11 @@ import com.example.task4.Filter.OrderingType
 import com.example.task4.Habit.HabitType
 import com.example.task4.Habit.HabitInfo
 import com.example.task4.HabitsModel
-import com.example.task4.Room.RoomMapper
 
 class HabitsViewModel(private val model: HabitsModel) : ViewModel() {
     private val mutableFilter: MutableLiveData<HabitFilter> = MutableLiveData()
     private val reg = "[^\\w]*(\\w+)[^\\w]*".toRegex()
-    val habits: LiveData<MutableList<HabitInfo>> = model.habits.asLiveData()
-        .map {arrayList -> arrayList.map { RoomMapper.habitEntityToHabitInfo(it) }.toMutableList() }
+    val habits: LiveData<List<HabitInfo>> = model.habits.asLiveData()
     val filter: LiveData<HabitFilter> = mutableFilter
 
     init {

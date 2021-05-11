@@ -7,8 +7,13 @@ import com.example.task4.Habit.HabitInfo
 import com.example.task4.Habit.HabitPriority
 import com.example.task4.Habit.HabitType
 import com.example.task4.HabitsModel
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class HabitEditorViewModel(private val model: HabitsModel) : ViewModel() {
+class HabitEditorViewModel(private val model: HabitsModel) : ViewModel(), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + SupervisorJob() + CoroutineExceptionHandler{ _, e -> throw e}
+
     private val mutableName: MutableLiveData<String> = MutableLiveData()
     private val mutableDescription: MutableLiveData<String> = MutableLiveData()
     private val mutableType: MutableLiveData<String> = MutableLiveData()
@@ -25,6 +30,11 @@ class HabitEditorViewModel(private val model: HabitsModel) : ViewModel() {
 
     init {
         load()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        coroutineContext.cancelChildren()
     }
 
     fun setName(name: String) { mutableName.value = name }
@@ -44,9 +54,12 @@ class HabitEditorViewModel(private val model: HabitsModel) : ViewModel() {
         )
     }
 
-    fun insert(pos: Int?, habit: HabitInfo)
-    {
-        model.insert(habit, pos)
+    fun insert(pos: Int?, habit: HabitInfo) {
+        launch {
+            withContext(Dispatchers.IO) {
+                model.insert(habit, pos)
+            }
+        }
     }
 
     private fun load() {
