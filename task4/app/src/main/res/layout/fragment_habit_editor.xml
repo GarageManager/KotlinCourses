@@ -17,6 +17,13 @@
     <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/right_guideline"
+            app:layout_constraintGuide_percent="0.95"
+            android:orientation="vertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/radiobutton_guideline"
             app:layout_constraintGuide_percent="0.08"
             android:orientation="vertical"/>
@@ -126,8 +133,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/habit_types"
-            app:layout_constraintLeft_toLeftOf="@+id/left_guideline"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
             android:text="Save"
             android:textStyle="bold"/>
+
+    <Button
+            android:id="@+id/delete_habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/habit_types"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            android:text="Delete"
+            android:textStyle="bold"/>
+
+<!--    <Button-->
+<!--            android:id="@+id/done_habit"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/save_habit"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            android:text="Done!"-->
+<!--            android:textStyle="bold"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

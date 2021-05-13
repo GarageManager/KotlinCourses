@@ -9,11 +9,7 @@ class HabitsPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)  {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment  = when (position){
-        0 -> {
-            HabitsListFragment.newInstance(HabitType.Positive)
-        }
-        else -> {
-            HabitsListFragment.newInstance(HabitType.Negative)
-        }
+        0 -> HabitsListFragment.newInstance(HabitType.Positive)
+        else -> HabitsListFragment.newInstance(HabitType.Negative)
     }
 }

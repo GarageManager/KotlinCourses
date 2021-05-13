@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_habit_editor.*
 
 class HabitEditorFragment : Fragment() {
     private lateinit var editorViewModel: HabitEditorViewModel
-    private var position: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,18 +28,18 @@ class HabitEditorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewListeners()
-        editorViewModel.setPosition(position)
 
         if (arguments != null) {
             arguments?.let {
                 setEditorFields(
-                    it.getString("habit_name")!!,
-                    it.getString("habit_description")!!,
-                    it.getInt("habit_periodicity"),
-                    it.getString("habit_priority")!!,
-                    it.getString("habit_type")!!,
-                    it.getInt("item_position")
+                    it.getString("name")!!,
+                    it.getString("description")!!,
+                    it.getInt("periodicity"),
+                    it.getString("priority")!!,
+                    it.getString("type")!!
                 )
+                editorViewModel.setUid(it.getString("uid")!!)
+                editorViewModel.setDate(it.getInt("date"))
             }
         } else {
             setEditorFields(
@@ -48,14 +47,17 @@ class HabitEditorFragment : Fragment() {
                 editorViewModel.description.value!!,
                 editorViewModel.periodicity.value!!,
                 editorViewModel.priority.value!!,
-                editorViewModel.type.value!!,
-                editorViewModel.position.value
+                editorViewModel.type.value!!
             )
         }
 
         habit_priority.setSelection(0)
         save_habit.setOnClickListener {
-            editorViewModel.insert(position, editorViewModel.getHabit())
+            editorViewModel.insert()
+            findNavController().popBackStack()
+        }
+        delete_habit.setOnClickListener{
+            editorViewModel.delete()
             findNavController().popBackStack()
         }
     }
@@ -111,15 +113,13 @@ class HabitEditorFragment : Fragment() {
         description: String,
         periodicity: Int,
         priority: String,
-        type: String,
-        pos: Int?
+        type: String
     ) {
         habit_name.setText(name)
         habit_description.setText(description)
         habit_periodicity.setText(periodicity.toString())
         habit_priority.setSelection(getSpinnerIndex(habit_priority, priority))
         radioGroupSetCheck(habit_types, type)
-        position = pos
     }
 
     private fun getSpinnerIndex(spinner: Spinner, myString: String): Int {

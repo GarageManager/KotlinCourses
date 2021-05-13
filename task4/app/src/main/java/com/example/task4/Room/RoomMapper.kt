@@ -5,17 +5,18 @@ import com.example.task4.Habit.HabitPriority
 import com.example.task4.Habit.HabitType
 
 object RoomMapper {
-    fun habitInfoToHabitEntity(habitInfo: HabitInfo, pos: Int?): HabitEntity {
-        val entity = HabitEntity(
+    fun habitInfoToHabitEntity(habitInfo: HabitInfo): HabitEntity {
+        return HabitEntity(
             habitInfo.name,
             habitInfo.description,
             habitInfo.type.name,
-            habitInfo.periodicity.toString(),
-            habitInfo.priority.name
+            habitInfo.frequency,
+            habitInfo.priority.name,
+            habitInfo.count,
+            habitInfo.date,
+            habitInfo.doneDates,
+            habitInfo.uid
         )
-        if (pos != null)
-            entity.id = pos + 1
-        return entity
     }
 
     fun habitEntityToHabitInfo(habitEntity: HabitEntity): HabitInfo {
@@ -23,8 +24,12 @@ object RoomMapper {
             habitEntity.name,
             habitEntity.description,
             HabitPriority.valueOf(habitEntity.priority),
-            habitEntity.periodicity.toInt(),
-            HabitType.valueOf(habitEntity.type)
+            habitEntity.frequency,
+            HabitType.valueOf(habitEntity.type),
+            habitEntity.count,
+            habitEntity.day,
+            habitEntity.doneDates,
+            habitEntity.uid
         )
     }
 }

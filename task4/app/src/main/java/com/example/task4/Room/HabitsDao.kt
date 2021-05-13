@@ -9,4 +9,8 @@ interface HabitsDao {
     fun getAll(): Flow<List<HabitEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg habit: HabitEntity)
+    @Delete
+    suspend fun delete(habit: HabitEntity)
+    @Query("DELETE FROM habits_table")
+    suspend fun deleteAll()
 }

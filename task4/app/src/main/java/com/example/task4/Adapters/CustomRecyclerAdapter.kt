@@ -26,7 +26,7 @@ class CustomRecyclerAdapter(private val values: List<HabitInfo>, private val rv:
         holder.habitItemType?.text = "Type: ${values[position].type}"
         holder.habitItemDescription?.text = values[position].description
         holder.habitItemPriority?.text = "Priority: ${values[position].priority}"
-        holder.habitItemPeriodicity?.text = "Periodicity: ${values[position].periodicity}"
+        holder.habitItemPeriodicity?.text = "Periodicity: ${values[position].frequency}"
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,6 +40,6 @@ class CustomRecyclerAdapter(private val values: List<HabitInfo>, private val rv:
     override fun onClick(view: View?) {
         val itemPosition: Int? = view?.let { rv.getChildLayoutPosition(it) }
         val item: HabitInfo = values[itemPosition!!]
-        fragment.handleRvClick(item, itemPosition)
+        fragment.handleRvClick(item)
     }
 }

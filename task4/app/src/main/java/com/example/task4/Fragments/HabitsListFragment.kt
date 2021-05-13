@@ -58,14 +58,15 @@ class HabitsListFragment : Fragment(), IHabitsList {
         return inflater.inflate(R.layout.fragment_habits_list, container, false)
     }
 
-    override fun handleRvClick(item: HabitInfo, pos: Int) {
+    override fun handleRvClick(item: HabitInfo) {
         val bundle = Bundle()
-        bundle.putInt("item_position", pos)
-        bundle.putString("habit_name", item.name)
-        bundle.putString("habit_description", item.description)
-        bundle.putString("habit_priority", item.priority.name)
-        bundle.putInt("habit_periodicity", item.periodicity)
-        bundle.putString("habit_type", item.type.name)
+        bundle.putString("uid", item.uid)
+        bundle.putString("name", item.name)
+        bundle.putString("description", item.description)
+        bundle.putString("priority", item.priority.name)
+        bundle.putInt("periodicity", item.frequency)
+        bundle.putInt("date", item.date)
+        bundle.putString("type", item.type.name)
         findNavController().navigate(R.id.action_home_to_editor, bundle)
     }
 }

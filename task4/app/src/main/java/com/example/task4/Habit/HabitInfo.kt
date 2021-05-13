@@ -3,8 +3,12 @@ package com.example.task4.Habit
 class HabitInfo(val name: String,
                 val description: String,
                 val priority: HabitPriority,
-                val periodicity: Int,
-                val type: HabitType
+                val frequency: Int,
+                val type: HabitType,
+                val count: Int = 0,
+                val date: Int = 0,
+                val doneDates: List<Int> = listOf(),
+                val uid: String = ""
 ) {
     companion object {
         fun defaultInstance(): HabitInfo =

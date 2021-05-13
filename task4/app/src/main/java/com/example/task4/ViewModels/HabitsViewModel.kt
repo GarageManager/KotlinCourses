@@ -34,9 +34,9 @@ class HabitsViewModel(private val model: HabitsModel) : ViewModel() {
         if (filter.value!!.filterOrdering != FilterOrdering.None) {
             val filterOrdering = filter.value!!.filterOrdering
             if (filter.value!!.orderingType == OrderingType.Ascending) {
-                filteredHabits.sortBy { if (filterOrdering == FilterOrdering.Periodicity) it.periodicity else it.priorityNumeric }
+                filteredHabits.sortBy { if (filterOrdering == FilterOrdering.Periodicity) it.frequency else it.priorityNumeric }
             } else if (filter.value!!.orderingType == OrderingType.Descending) {
-                filteredHabits.sortByDescending { if (filterOrdering == FilterOrdering.Periodicity) it.periodicity else it.priorityNumeric }
+                filteredHabits.sortByDescending { if (filterOrdering == FilterOrdering.Periodicity) it.frequency else it.priorityNumeric }
             }
         }
 
